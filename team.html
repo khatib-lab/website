@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet the Khatib Laboratory research team at Virginia Tech, including the principal investigator, graduate and undergraduate researchers, and alumni.">
+  <meta name="theme-color" content="#f7f5f1">
+  <title>Team — Khatib Laboratory</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ══ PAGE-SPECIFIC: team.html ══ */
+
+    /* ── Team Banner (page header with group photo) ── */
+    .team-banner {
+      min-height: 42vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg-dark);
+      padding-top: 5.5rem; /* clears fixed nav */
+      overflow: hidden;
+      position: relative;
+    }
+    /* Subtle gradient atmosphere behind everything */
+    .team-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 80% at 15% 60%, rgba(181,134,42,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 90% 20%, rgba(42,104,96,0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .team-banner__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem 3.5rem 2.5rem calc(var(--gutter) + 0.5rem);
+      position: relative;
+      z-index: 1;
+    }
+    .team-banner__left .eyebrow { color: var(--gold-light); }
+    .team-banner__left .eyebrow::before { background: var(--gold-light); }
+    .team-banner__left .display-title {
+      color: #f0ede8;
+      margin-bottom: 1.2rem;
+    }
+    .team-banner__left .display-title em { color: var(--gold-light); }
+    .team-banner__left .lead {
+      color: rgba(240,237,232,0.62);
+      max-width: 460px;
+    }
+
+    /* Right side: holds either the real photo or the placeholder */
+    .team-banner__right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /*
+     * THE REAL PHOTO — applied when you add the <img> tag.
+     * It fills the entire right panel, cropped to cover.
+     */
+    .team-banner__photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top; /* keeps faces visible — adjust if needed */
+      display: block;
+    }
+    /* No vignette needed — text and photo are in separate columns */
+
+    /* ── Placeholder (shown until real photo is added) ── */
+    .team-banner__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px dashed rgba(181,134,42,0.2);
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 18px,
+          rgba(181,134,42,0.03) 18px,
+          rgba(181,134,42,0.03) 19px
+        );
+    }
+    .team-banner__placeholder-inner {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 2rem;
+    }
+    .team-banner__placeholder-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(181,134,42,0.5);
+    }
+    .team-banner__placeholder-hint {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.04em;
+      color: rgba(240,237,232,0.2);
+      line-height: 1.9;
+    }
+    .team-banner__placeholder-hint code {
+      color: rgba(181,134,42,0.5);
+      font-family: var(--font-mono);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .team-banner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .team-banner__left {
+        padding: 3rem var(--gutter) 2.5rem;
+      }
+      .team-banner__right {
+        height: 260px;
+        border-top: 1px dashed rgba(181,134,42,0.15);
+      }
+    }
+
+
+    .pi-section { padding: 5rem 0; }
+
+    .pi-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem;
+      position: relative;
+    }
+    .pi-card::before {
+      content: 'Principal Investigator';
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* ── Avatar (used for PI and students) ── */
+    /*
+     * TO SWAP IN A REAL PHOTO:
+     *   Replace the entire <div class="avatar ..."> element with:
+     *   <img src="images/firstname-lastname.jpg" alt="Name" class="avatar-img">
+     *   Then add this CSS:  .avatar-img { width:100%; aspect-ratio:3/4; object-fit:cover; }
+     */
+    .avatar {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .avatar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 30%, rgba(181,134,42,0.18) 0%, transparent 70%);
+    }
+    .avatar__initials {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      font-style: italic;
+      color: rgba(181,134,42,0.7);
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .pi-card .avatar { aspect-ratio: 3/4; width: 280px; }
+
+    .pi-info { display: flex; flex-direction: column; justify-content: center; }
+
+    .pi-info h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+    .pi-info .pi-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .pi-info > p {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+      max-width: 580px;
+    }
+    .pi-contact {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-mid);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.8rem;
+    }
+    .pi-contact a { color: var(--teal); transition: color 0.2s; }
+    .pi-contact a:hover { color: var(--gold); }
+
+    /* Education table */
+    .edu-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .edu-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-table th {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 0 0 0.5rem 0;
+      text-align: left;
+      font-weight: 400;
+    }
+    .edu-table th:last-child { text-align: right; }
+    .edu-table td {
+      padding: 0.65rem 0;
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .edu-table td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold);
+      white-space: nowrap;
+      padding-right: 1.5rem;
+    }
+    .edu-table td:last-child { text-align: right; color: var(--ink-light); font-size: 0.8rem; }
+
+    /* ── Students Section ── */
+    .students-section { padding: 5rem 0; }
+
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    /* ── Student card ── */
+    .student-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.28s, transform 0.28s;
+      display: flex;
+      flex-direction: column;
+    }
+    .student-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+
+    /* Photo — square crop */
+    .student-card .avatar {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 0;
+      flex-shrink: 0;
+    }
+    .student-card .avatar__initials { font-size: 2.5rem; }
+
+    /* Body holds all the text fields */
+    .student-card__body {
+      padding: 1.4rem 1.6rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    /* Name */
+    .student-card__body h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Current degree badge */
+    .student-card__degree {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(181,134,42,0.35);
+      padding: 0.18rem 0.6rem;
+      margin-bottom: 1rem;
+      align-self: flex-start;
+    }
+
+    /* Structured info rows (BSc + Project) */
+    .student-card__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .student-card__meta-row {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 0.6rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .student-card__meta-row:last-child { border-bottom: none; }
+
+    .student-card__meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding-top: 0.05rem;
+      flex-shrink: 0;
+    }
+
+    .student-card__meta-value {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    /* Project value gets a slightly darker color so it stands out */
+    .student-card__meta-row--project .student-card__meta-value {
+      color: var(--ink);
+      font-size: 0.84rem;
+    }
+
+    /* LinkedIn link — sits below the meta table */
+    .linkedin-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+      align-self: flex-start;
+    }
+    .linkedin-link:hover { color: #0a66c2; }  /* LinkedIn blue on hover */
+    .linkedin-link svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* LinkedIn on the PI card — slightly larger */
+    .pi-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .pi-linkedin:hover { color: #0a66c2; }
+    .pi-linkedin svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    /* LinkedIn on undergrad cards */
+    .ug-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .ug-linkedin:hover { color: #0a66c2; }
+    .ug-linkedin svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+
+    /* LinkedIn button in alumni table */
+    .alumni-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.4);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.35rem 0.8rem;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .alumni-linkedin:hover { color: #70b5f9; border-color: rgba(112,181,249,0.4); }
+    .alumni-linkedin svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+    .alumni-linkedin--placeholder { opacity: 0.35; cursor: default; pointer-events: none; }
+
+    /* Undergrad sub-heading */
+    .sub-heading {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ug-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .ug-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.5rem;
+      transition: background 0.2s;
+    }
+    .ug-card:hover { background: var(--bg-alt); }
+
+    .ug-card .avatar {
+      width: 72px;
+      height: 72px;
+      aspect-ratio: 1;
+      flex-shrink: 0;
+    }
+    .ug-card .avatar__initials { font-size: 1.3rem; }
+
+    .ug-card__info h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.1rem;
+    }
+    .ug-card__role {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .ug-card__info p { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.65; }
+
+    /* ── Alumni Section ── */
+    .alumni-section {
+      padding: 5rem 0;
+      background: var(--bg-dark);
+      color: #f0ede8;
+    }
+    .alumni-section .eyebrow { color: var(--gold-light); }
+    .alumni-section .eyebrow::before { background: var(--gold-light); }
+    .alumni-section .section-title em { color: var(--gold-light); }
+    .alumni-section .lead { color: rgba(240,237,232,0.6); }
+
+    .alumni-table-wrap {
+      margin-top: 2.5rem;
+      overflow-x: auto;
+    }
+    .alumni-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .alumni-table thead tr {
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .alumni-table th {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.35);
+      padding: 0 0 0.8rem 0;
+      text-align: left;
+      font-weight: 400;
+    }
+    .alumni-table th:not(:first-child) { padding-left: 1.5rem; }
+
+    .alumni-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.18s;
+    }
+    .alumni-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+    .alumni-table td {
+      padding: 1.3rem 0;
+      font-size: 0.9rem;
+      color: rgba(240,237,232,0.75);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .alumni-table td:not(:first-child) { padding-left: 1.5rem; }
+
+    .alumni-table td:first-child {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f0ede8;
+    }
+
+    .alumni-degree-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.55rem;
+      border: 1px solid rgba(181,134,42,0.35);
+      color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #111315;
+      color: rgba(240,237,232,0.55);
+      padding: 3rem var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer__brand {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .footer__brand small {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.3);
+      font-style: normal;
+      margin-top: 0.2rem;
+    }
+    .footer__links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .footer__links a {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.4);
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: var(--gold-light); }
+    .footer__info {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      line-height: 1.9;
+      color: rgba(240,237,232,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .pi-card { grid-template-columns: 1fr; gap: 2rem; }
+      .pi-card .avatar { width: 100%; aspect-ratio: 16/9; }
+      .students-grid { grid-template-columns: 1fr 1fr; }
+      .ug-grid { grid-template-columns: 1fr; }
+      .alumni-table td:nth-child(3) { display: none; }
+      .alumni-table th:nth-child(3) { display: none; }
+      .site-footer { grid-template-columns: 1fr; text-align: center; }
+      .footer__info { text-align: center; }
+      .footer__links { justify-content: center; flex-wrap: wrap; }
+    }
+    @media (max-width: 600px) {
+      .students-grid { grid-template-columns: 1fr; }
+      .pi-card::before { display: none; }
+    }
+
+    /* ── Alumni show / hide ── */
+    .alumni-row.hidden { display: none; }
+    .alumni-expand {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.8rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .alumni-expand__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      background: none;
+      border: 1px solid rgba(181,134,42,0.35);
+      padding: 0.55rem 1.3rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .alumni-expand__btn:hover { background: rgba(181,134,42,0.08); border-color: rgba(181,134,42,0.65); }
+    .alumni-expand__btn svg { transition: transform 0.3s; flex-shrink: 0; }
+    .alumni-expand__btn.expanded svg { transform: rotate(180deg); }
+    .alumni-expand__count {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: rgba(240,237,232,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ══ -->
+  <nav class="site-nav" id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo__name">Khatib Laboratory</span>
+      <span class="nav-logo__sub">Virginia Tech · Chemical Engineering</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html" class="active">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ TEAM BANNER ══ -->
+  <header class="team-banner">
+    <div class="team-banner__left">
+      <p class="eyebrow">Our People</p>
+      <h1 class="display-title">The <em>Team</em></h1>
+      <p class="lead">
+        A diverse group of researchers united by curiosity and driven
+        to advance heterogeneous catalysis for sustainable chemistry.
+      </p>
+    </div>
+
+    <div class="team-banner__right">
+      <!--
+        ════════════════════════════════════════════════════════
+        HOW TO ADD YOUR GROUP PHOTO:
+          1. Save your photo as:  images/group-photo.jpg
+             (place the "images" folder next to team.html)
+          2. Delete the entire <div class="team-banner__placeholder"> block below.
+          3. Uncomment the <img> tag below by removing the  and  around it.
+        ════════════════════════════════════════════════════════
+      -->
+
+      <!-- ↓ UNCOMMENT THIS LINE AND REMOVE THE PLACEHOLDER DIV ↓ -->
+      <img src="images/group-photo.jpg" alt="Khatib Laboratory group photo" class="team-banner__photo" width="1600" height="1319" decoding="async" fetchpriority="high">
+
+    </div>
+  </header>
+
+  <!-- ══ PRINCIPAL INVESTIGATOR ══ -->
+  <section class="pi-section section">
+    <div class="container">
+      <p class="eyebrow reveal">Lab Director</p>
+      <h2 class="section-title reveal" style="margin-bottom:2.5rem;">Principal <em>Investigator</em></h2>
+
+      <div class="pi-card reveal">
+        <!--
+          TO ADD DR. KHATIB'S PHOTO: Replace the <div class="avatar"> block below with:
+          <img src="images/sheima-khatib.jpg" alt="Dr. Sheima J. Khatib" style="width:280px;aspect-ratio:3/4;object-fit:cover;flex-shrink:0;">
+        -->
+        <div class="avatar">
+          <span class="avatar__initials">SJK</span>
+        </div>
+
+        <div class="pi-info">
+          <h2>Sheima J. Khatib, Ph.D.</h2>
+          <p class="pi-title">Associate Professor · Department of Chemical Engineering · Virginia Tech</p>
+
+          <p>
+            Dr. Khatib leads the Khatib Laboratory, performing research on diverse aspects of heterogeneous
+            catalysis at the atomic and nanoscale level. Her work spans catalyst synthesis, structural
+            characterization, kinetic testing, and catalytic reactor engineering, all applied to chemically
+            sustainable processes with industrial and energy applications. Her mission is to prepare novel
+            optimized catalysts for efficient chemical conversion that can answer technological demands and
+            societal challenges.
+          </p>
+
+          <div class="pi-contact">
+            <span>✉ <a href="mailto:sheimajk@vt.edu">sheimajk@vt.edu</a></span>
+            <span>☎ (540) 808-5498</span>
+            <span>📍 259 Goodwin Hall, 635 Prices Fork Road, Blacksburg, VA 24060</span>
+            <span>🔗 <a href="https://scholar.google.com/scholar?as_sauthors=Sheima+Khatib" target="_blank">Google Scholar</a>
+                 &nbsp;·&nbsp;
+                 <a href="http://www.researcherid.com/rid/P-6629-2016" target="_blank">ResearcherID</a>
+            </span>
+            <!--
+              LINKEDIN: Replace the # below with Dr. Khatib's LinkedIn profile URL.
+              Example: href="https://www.linkedin.com/in/sheima-khatib"
+            -->
+            <span>
+              <span class="pi-linkedin" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+            </span>
+          </div>
+
+          <table class="edu-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Degree / Position</th>
+                <th>Institution</th>
+              </tr>
+            </thead>
+             <tr>
+                <td>2023-Present</td>
+                <td>Associate Professor, Chemical Engineering</td>
+                <td>Virginia Tech</td>
+              </tr>
+            <tbody>
+               <tr>
+                <td>2014-23</td>
+                <td>Associate Professor, Chemical Engineering</td>
+                <td>Texas Tech</td>
+              </tr>
+              <tr>
+                <td>2010–14</td>
+                <td>Research Associate, Chemical Engineering</td>
+                <td>Virginia Tech</td>
+              </tr>
+              <tr>
+                <td>2008–10</td>
+                <td>Postdoctoral Fellow</td>
+                <td>ICP "Rocasolano", CSIC, Spain</td>
+              </tr>
+              <tr>
+                <td>2007</td>
+                <td>Ph.D., Chemistry</td>
+                <td>ICP / Univ. Autónoma de Madrid</td>
+              </tr>
+              <tr>
+                <td>2002</td>
+                <td>M.S., Chemical Engineering</td>
+                <td>Universidad de Málaga</td>
+              </tr>
+              <tr>
+                <td>2001</td>
+                <td>B.S., Chemical Engineering</td>
+                <td>Universidad de Málaga</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ CURRENT GRADUATE STUDENTS ══ -->
+  <section class="students-section section">
+    <div class="container">
+      <p class="eyebrow reveal">Current Lab Members</p>
+      <h2 class="section-title reveal">Graduate <em>Students</em></h2>
+      <!-- <p class="lead reveal">PhD candidates currently conducting research in the Khatib Laboratory.</p> -->
+
+      <div class="students-grid" style="margin-bottom: 3.5rem;">
+
+        <!-- ── Noel Emanuel Joy ── -->
+        <div class="student-card reveal reveal-delay-1">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/noel-joy.jpg" alt="Noel Emanuel Joy" style="width:100%;aspect-ratio:1;object-fit:cover;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">NEJ</span>
+          </div>
+          <div class="student-card__body">
+            <h3>Emanuele "Noel" Hiennadi</h3>
+            <span class="student-card__degree">PhD Candidate</span>
+            <div class="student-card__meta">
+              <div class="student-card__meta-row">
+                <span class="student-card__meta-label">B.S.</span>
+                <span class="student-card__meta-value">Chemical Engineering, Oregon State University (2020)</span>
+              </div>
+              <div class="student-card__meta-row student-card__meta-row--project">
+                <span class="student-card__meta-label">Project</span>
+                <span class="student-card__meta-value">Methane dehydroaromatization on ZSM-5-supported molybdenum catalysts — structure–selectivity relationships and resistance to coke deactivation</span>
+              </div>
+            </div>
+            <!--
+              LINKEDIN: Replace the # with Noel's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/noel-joy"
+            -->
+            <span class="linkedin-link" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+          </div>
+        </div>
+
+        <!-- ── Md Sifat Hossain ── -->
+        <div class="student-card reveal reveal-delay-2">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/sifat-hossain.jpg" alt="Md Sifat Hossain" style="width:100%;aspect-ratio:1;object-fit:cover;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">MSH</span>
+          </div>
+          <div class="student-card__body">
+            <h3>Md Sifat Hossain</h3>
+            <span class="student-card__degree">PhD Candidate</span>
+            <div class="student-card__meta">
+              <div class="student-card__meta-row">
+                <span class="student-card__meta-label">B.S.</span>
+                <span class="student-card__meta-value">Chemical Engineering, Bangladesh University of Engineering &amp; Technology (2018)</span>
+              </div>
+              <div class="student-card__meta-row student-card__meta-row--project">
+                <span class="student-card__meta-label">Project</span>
+                <span class="student-card__meta-value">Reaction kinetics and dynamic structural evolution of metal-loaded zeolite catalysts for methane dehydroaromatization</span>
+              </div>
+            </div>
+            <!--
+              LINKEDIN: Replace the # with Sifat's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/sifat-hossain"
+            -->
+            <a href="https://www.linkedin.com/in/md-sifat-hossain" target="_blank" class="linkedin-link">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- ── Mizan Hoque ── -->
+        <div class="student-card reveal reveal-delay-3">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/mizan-hoque.jpg" alt="Mizan Hoque" style="width:100%;aspect-ratio:1;object-fit:cover;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">MH</span>
+          </div>
+          <div class="student-card__body">
+            <h3>Mizan Hoque</h3>
+            <span class="student-card__degree">PhD Student</span>
+            <div class="student-card__meta">
+              <div class="student-card__meta-row">
+                <span class="student-card__meta-label">B.S.</span>
+                <!-- UPDATE: Replace with Mizan's BSc institution -->
+                <span class="student-card__meta-value">Chemical Engineering, Bangladesh University of Engineering &amp; Technology (2018)</span>
+              </div>
+              <div class="student-card__meta-row student-card__meta-row--project">
+                <span class="student-card__meta-label">Project</span>
+                <!-- UPDATE: Replace with Mizan's research project -->
+                <span class="student-card__meta-value">Designing membrane reactors for enhanced catalytic performance in methane dehydroaromatization</span>
+              </div>
+            </div>
+            <!--
+              LINKEDIN: Replace the # with Mizan's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/mizan-hoque"
+            -->
+            <a href="https://www.linkedin.com/in/mizan1302026" target="_blank" class="linkedin-link">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- ── Vihangi Sonnadra ── -->
+        <div class="student-card reveal reveal-delay-1">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/vihangi-sonnadra.jpg" alt="Vihangi Sonnadra" style="width:100%;aspect-ratio:1;object-fit:cover;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">VS</span>
+          </div>
+          <div class="student-card__body">
+            <h3>Vihangi Sonnadra</h3>
+            <span class="student-card__degree">PhD Student</span>
+            <div class="student-card__meta">
+              <div class="student-card__meta-row">
+                <span class="student-card__meta-label">B.S.</span>
+                <!-- UPDATE: Replace with Vihangi's BSc institution -->
+                <span class="student-card__meta-value">Chemical Engineering, University of Paradeniya - Sri Lanka (2023)</span>
+              </div>
+              <div class="student-card__meta-row student-card__meta-row--project">
+                <span class="student-card__meta-label">Project</span>
+                <!-- UPDATE: Replace with Vihangi's research project -->
+                <span class="student-card__meta-value">Atomic layer deposition for synthesizing Doped-Mo/ZSM-5 catalysts for methane dehydroamromatization</span>
+              </div>
+            </div>
+            <!--
+              LINKEDIN: Replace the # with Vihangi's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/vihangi-sonnadra"
+            -->
+            <a href="https://www.linkedin.com/in/vihangi-sonnadara-32a278227" target="_blank" class="linkedin-link">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- ── Silvanus Darkey ── -->
+        <div class="student-card reveal reveal-delay-2">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/silvanus-darkey.jpg" alt="Silvanus Darkey" style="width:100%;aspect-ratio:1;object-fit:cover;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">SD</span>
+          </div>
+          <div class="student-card__body">
+            <h3>Silvanus Darkey</h3>
+            <span class="student-card__degree">PhD Student</span>
+            <div class="student-card__meta">
+              <div class="student-card__meta-row">
+                <span class="student-card__meta-label">B.S.</span>
+                <!-- UPDATE: Replace with Silvanus's BSc institution -->
+                <span class="student-card__meta-value">Chemical Engineering, KNUST-Ghana (2022)</span>
+              </div>
+              <div class="student-card__meta-row student-card__meta-row--project">
+                <span class="student-card__meta-label">Project</span>
+                <span class="student-card__meta-value">Catalytic methane decomposition for turquoise hydrogen production — ARC Hydrogen Innovation Hub project</span>
+              </div>
+            </div>
+            <!--
+              LINKEDIN: Replace the # with Silvanus's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/silvanus-darkey"
+            -->
+            <a href="https://www.linkedin.com/in/silvanus-junior-darkey/" target="_blank" class="linkedin-link">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Undergraduate Students ── -->
+      <p class="sub-heading reveal">Undergraduate Researchers</p>
+      <div class="ug-grid">
+
+        <!-- ── Charlie Chong ── -->
+        <div class="ug-card reveal reveal-delay-1">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/charlie-chong.jpg" alt="Charlie Chong" style="width:72px;height:72px;object-fit:cover;flex-shrink:0;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">CC</span>
+          </div>
+          <div class="ug-card__info">
+            <h3>Charlie Chong</h3>
+            <p class="ug-card__role">Undergraduate Researcher</p>
+            <p>
+              Charlie is an undergraduate student conducting research in the Khatib Laboratory,
+              gaining hands-on experience in catalyst synthesis and characterization.
+              <!-- UPDATE: Add major, year, and research contribution. -->
+            </p>
+            <!--
+              LINKEDIN: Replace the # with Charlie's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/charlie-chong"
+            -->
+            <span class="ug-linkedin" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+          </div>
+        </div>
+
+        <!-- ── Natalie Henrichs ── -->
+        <div class="ug-card reveal reveal-delay-2">
+          <!--
+            TO ADD PHOTO: Replace the <div class="avatar"> block with:
+            <img src="images/natalie-henrichs.jpg" alt="Natalie Henrichs" style="width:72px;height:72px;object-fit:cover;flex-shrink:0;">
+          -->
+          <div class="avatar">
+            <span class="avatar__initials">NH</span>
+          </div>
+          <div class="ug-card__info">
+            <h3>Natalie Henrichs</h3>
+            <p class="ug-card__role">Undergraduate Researcher</p>
+            <p>
+              Natalie contributes to ongoing experimental work in the Khatib Laboratory as part of
+              her undergraduate research experience.
+              <!-- UPDATE: Add major, year, and research contribution. -->
+            </p>
+            <!--
+              LINKEDIN: Replace the # with Natalie's LinkedIn URL.
+              Example: href="https://www.linkedin.com/in/natalie-henrichs"
+            -->
+            <span class="ug-linkedin" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ALUMNI ══ -->
+  <section class="alumni-section">
+    <div class="container">
+      <p class="eyebrow reveal">Lab Alumni</p>
+      <h2 class="section-title reveal">Where Our <em>Graduates</em> Go</h2>
+      <p class="lead reveal">
+        Former members of the Khatib Laboratory and their research contributions.
+      </p>
+
+      <div class="alumni-table-wrap reveal">
+        <table class="alumni-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Degree &amp; Year</th>
+              <th>Research Contribution</th>
+              <th>LinkedIn</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="alumni-row" data-idx="0">
+              <td>Mustafizur Rahman</td>
+              <td>
+                <span class="alumni-degree-badge">Ph.D. ChE</span>
+                <br><small style="font-size:0.75rem;color:rgba(240,237,232,0.4);">Dec 2019</small>
+              </td>
+              <td>
+                Dissertation: <em>"Dehydroaromatization of Methane over ZSM-5 Supported Molybdenum Carbide Catalysts."</em>
+                Pioneered ex-situ formation of Mo carbide species to improve catalytic stability in MDA.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Mustafizur Rahman's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/mustafizur-rahman-a3047a42" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="1">
+              <td>Apoorva Sridhar</td>
+              <td>
+                <span class="alumni-degree-badge">Ph.D. ChE</span>
+                <br><small style="font-size:0.75rem;color:rgba(240,237,232,0.4);">May 2019</small>
+              </td>
+              <td>
+                Dissertation: <em>"The Influence of Pretreatment and Doping of Fe, Co, and Ni on Mo/HZSM-5 Catalysts in Methane Dehydroaromatization."</em>
+                Established how bimetallic promoters modulate carbon deposition and catalyst activity.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Apoorva Sridhar's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/apoorvasridhar/overlay/contact-info/" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="2">
+              <td>Gagandeep Dhillon</td>
+              <td>
+                <span class="alumni-degree-badge">Postdoc</span>
+                <br><small style="font-size:0.75rem;color:rgba(240,237,232,0.4);">2021–22</small>
+              </td>
+              <td>
+                Investigated methane dehydroaromatization, heterogeneous catalyst synthesis, and
+                hydrotreating and reforming reactions. Ph.D. and M.S. from University of New Hampshire.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Gagandeep Dhillon's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/gagandeep-dhillon-89b671ab" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="3">
+              <td>Hannah J. Harbin</td>
+              <td>
+                <span class="alumni-degree-badge">Ph.D. ChE</span>
+              </td>
+              <td>
+                Research focused on clean hydrogen production through catalytic methane decomposition
+                over novel materials. B.S. Chemistry &amp; Mathematics, Lubbock Christian University (2017).
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Hannah J. Harbin's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/hannahjaye" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="4">
+              <td>George Hana</td>
+              <td>
+                <span class="alumni-degree-badge">Ph.D. ChE</span>
+              </td>
+              <td>
+                Worked on catalytic membrane reactors, building expertise in reactor design for
+                methane conversion processes. B.S. Texas Tech University; M.S. Rutgers University.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with George Hana's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/george-hana-219a51209" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="5">
+              <td>Fariha Afnan</td>
+              <td>
+                <span class="alumni-degree-badge" >Ph.D. ChE</span>
+              </td>
+              <td>
+                Focused on catalyst preparation by atomic layer deposition (ALD), developing
+                precise thin-film catalyst coatings on support materials.
+                B.S. Chemical Engineering, BUET (2018).
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Fariha Afnan's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/fariha-afnan" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="6">
+              <td>Teja Adepu</td>
+              <td>
+                <span class="alumni-degree-badge">M.S. ChE</span>
+                <br><small style="font-size:0.75rem;color:rgba(240,237,232,0.4);">2017</small>
+              </td>
+              <td>
+                Thesis: <em>"Kinetic Regime Determination and Metal Loading Effects in Methane Aromatization."</em>
+                Established kinetic analysis framework for MDA catalyst evaluation.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Teja Adepu's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <span class="alumni-linkedin alumni-linkedin--placeholder" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="7">
+              <td>Farah Jacob</td>
+              <td>
+                <span class="alumni-degree-badge">M.S. ChE</span>
+              </td>
+              <td>Graduate researcher in heterogeneous catalysis.</td>
+              <td>
+                <!-- LINKEDIN: Replace # with Farah Jacob's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/farah-jacob-729a1a57" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="8">
+              <td>James Tata</td>
+              <td>
+                <span class="alumni-degree-badge">M.S. ChE</span>
+              </td>
+              <td>
+                DOE Visiting Faculty Program intern at Brookhaven National Laboratory (2017),
+                studying water-gas shift catalysts. B.S. Chemical Engineering, Texas Tech University.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with James Tata's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/james-tata-19bb0b50" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row" data-idx="9">
+              <td>Andrew Gearin</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+                <br><small style="font-size:0.75rem;color:rgba(240,237,232,0.4);">May 2022</small>
+              </td>
+              <td>
+                Undergraduate researcher from Tigard, Oregon. Completed a process engineering internship
+                at Jacobs Engineering (Advanced Facilities Group) alongside his lab work.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Andrew Gearin's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/andrew-gearin" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="10">
+              <td>Carlos Hernandez</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+              </td>
+              <td>
+                Senior undergraduate researcher majoring in Chemical Engineering with minors in
+                Chemistry and Mathematics. Contributed to catalyst evaluation in the lab.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Carlos Hernandez's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/carlos-hernandez-ttu" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="11">
+              <td>Leah Harper</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+                <br><small style="font-size:0.75rem;color:rgba(240,237,232,0.4);">2017</small>
+              </td>
+              <td>
+                DOE Visiting Faculty Program intern at Brookhaven National Laboratory (Summer 2017),
+                studied water-gas shift catalysts alongside Dr. Khatib's group.
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Leah Harper's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/leah-harper-4b4001b5" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="12">
+              <td>Tate Harvey</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+              </td>
+              <td>Undergraduate researcher in the Khatib Laboratory.</td>
+              <td>
+                <!-- LINKEDIN: Replace # with Tate Harvey's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/tateharvey11" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="13">
+              <td>Ravisha Jayamaha</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+              </td>
+              <td>Undergraduate researcher in the Khatib Laboratory.</td>
+              <td>
+                <!-- LINKEDIN: Replace # with Ravisha Jayamaha's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/ravisha-jayamaha" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="14">
+              <td>Eva Osoro</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+              </td>
+              <td>Undergraduate researcher in the Khatib Laboratory.</td>
+              <td>
+                <!-- LINKEDIN: Replace # with Eva Osoro's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <span class="alumni-linkedin alumni-linkedin--placeholder" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="15">
+              <td>Peter Watkins</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">B.S. ChE</span>
+              </td>
+              <td>Undergraduate researcher in the Khatib Laboratory.</td>
+              <td>
+                <!-- LINKEDIN: Replace # with Peter Watkins's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <a href="https://www.linkedin.com/in/peter-watkins-a5959898" target="_blank" class="alumni-linkedin">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Profile
+                </a>
+              </td>
+            </tr>
+
+            <tr class="alumni-row hidden" data-idx="16">
+              <td>Mattheus Henrique Pires</td>
+              <td>
+                <span class="alumni-degree-badge" style="border-color:rgba(42,104,96,0.4);color:#6bbdb5;">Visiting — B.S. ChE</span>
+              </td>
+              <td>
+                Undergraduate visiting researcher from Fluminense Federal University (Brazil).
+                Co-authored work on selective hydrogenolysis of glycerol over Ir-Ni bimetallic catalysts
+                (published in <em>Catalysis Today</em>).
+              </td>
+              <td>
+                <!-- LINKEDIN: Replace # with Mattheus Henrique Pires's LinkedIn URL.
+                     Example: href="https://www.linkedin.com/in/firstname-lastname" -->
+                <span class="alumni-linkedin alumni-linkedin--placeholder" aria-disabled="true" title="Profile link not yet provided"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Profile unavailable</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      <div class="alumni-expand">
+        <button class="alumni-expand__btn" id="alumniToggle" onclick="toggleAlumni()">
+          <span id="alumniToggleLabel">Show 7 more alumni</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <span class="alumni-expand__count" id="alumniCount">Showing 10 of 17</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    <div class="footer__brand">
+      Khatib Laboratory
+      <small>Virginia Tech · Est. 2014</small>
+    </div>
+    <ul class="footer__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="mailto:sheimajk@vt.edu">Contact</a></li>
+    </ul>
+    <div class="footer__info">
+      259 Goodwin Hall · 635 Prices Fork Road<br>
+      Blacksburg, VA 24060<br>
+      sheimajk@vt.edu · (540) 808-5498
+    </div>
+  </footer>
+
+  <script>
+
+    function toggleAlumni() {
+      const btn   = document.getElementById('alumniToggle');
+      const label = document.getElementById('alumniToggleLabel');
+      const count = document.getElementById('alumniCount');
+      const rows  = document.querySelectorAll('.alumni-row');
+      const total = rows.length;
+      const open  = btn.classList.contains('expanded');
+      if (open) {
+        rows.forEach((r, i) => { if (i >= 10) r.classList.add('hidden'); });
+        btn.classList.remove('expanded');
+        label.textContent = 'Show ' + (total - 10) + ' more alumni';
+        count.textContent = 'Showing 10 of ' + total;
+      } else {
+        rows.forEach(r => r.classList.remove('hidden'));
+        btn.classList.add('expanded');
+        label.textContent = 'Show fewer';
+        count.textContent = 'Showing all ' + total + ' alumni';
+      }
+    }
+  </script>
+  <script src="site.js" defer></script>
+</body>
+</html>
