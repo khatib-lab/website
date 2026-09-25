@@ -63,3 +63,16 @@ Then open `http://localhost:8000/` in a browser.
 ## Ownership / continuity recommendation
 
 Keep this repository in a lab-owned GitHub Organization rather than a student's personal account. Give the PI and at least one additional long-term lab member organization ownership/admin access, and give active maintainers repository write access.
+
+## Virginia Tech color palette
+
+The site uses Virginia Tech's primary brand palette:
+- Chicago Maroon: `#861F41`
+- Burnt Orange: `#E87722`
+- Impact Orange for accessible digital text: `#C64600`
+- Hokie Stone: `#75787B`
+- Yardline White: `#FFFFFF`
+
+The shared palette is defined near the top of `style.css`. The existing semantic variable names
+(`--gold`, `--rust`, and `--teal`) are intentionally retained as aliases so older page-specific
+styles continue to work while using the VT palette.
